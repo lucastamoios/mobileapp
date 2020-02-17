@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Foundation;
 using Intents;
 using ObjCRuntime;
@@ -6,27 +6,38 @@ using ObjCRuntime;
 namespace Toggl.iOS.Intents
 {
 	// @interface ContinueTimerIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface ContinueTimerIntent
 	{
 	}
 
 	// @protocol ContinueTimerIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface ContinueTimerIntentHandling
 	{
-		// @required -(void)handleContinueTimer:(ContinueTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ContinueTimerIntentResponse * _Nonnull))completion;
+		// @required -(void)handleContinueTimer:(ContinueTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ContinueTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleContinueTimer:completion:")]
 		void HandleContinueTimer (ContinueTimerIntent intent, Action<ContinueTimerIntentResponse> completion);
 
-		// @optional -(void)confirmContinueTimer:(ContinueTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ContinueTimerIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmContinueTimer:(ContinueTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ContinueTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmContinueTimer:completion:")]
 		void ConfirmContinueTimer (ContinueTimerIntent intent, Action<ContinueTimerIntentResponse> completion);
 	}
 
 	// @interface ContinueTimerIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface ContinueTimerIntentResponse
@@ -36,7 +47,7 @@ namespace Toggl.iOS.Intents
 		[DesignatedInitializer]
 		IntPtr Constructor (ContinueTimerIntentResponseCode code, [NullAllowed] NSUserActivity userActivity);
 
-		// +(instancetype _Nonnull)successWithEntryDescriptionIntentResponseWithEntryDescription:(NSString * _Nonnull)entryDescription;
+		// +(instancetype _Nonnull)successWithEntryDescriptionIntentResponseWithEntryDescription:(NSString * _Nonnull)entryDescription __attribute__((swift_name("successWithEntryDescription(_:)")));
 		[Static]
 		[Export ("successWithEntryDescriptionIntentResponseWithEntryDescription:")]
 		ContinueTimerIntentResponse SuccessWithEntryDescriptionIntentResponseWithEntryDescription (string entryDescription);
@@ -51,27 +62,38 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @interface ShowReportIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface ShowReportIntent
 	{
 	}
 
 	// @protocol ShowReportIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface ShowReportIntentHandling
 	{
-		// @required -(void)handleShowReport:(ShowReportIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportIntentResponse * _Nonnull))completion;
+		// @required -(void)handleShowReport:(ShowReportIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleShowReport:completion:")]
 		void HandleShowReport (ShowReportIntent intent, Action<ShowReportIntentResponse> completion);
 
-		// @optional -(void)confirmShowReport:(ShowReportIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmShowReport:(ShowReportIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmShowReport:completion:")]
 		void ConfirmShowReport (ShowReportIntent intent, Action<ShowReportIntentResponse> completion);
 	}
 
 	// @interface ShowReportIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface ShowReportIntentResponse
@@ -87,6 +109,7 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @interface ShowReportPeriodIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface ShowReportPeriodIntent
 	{
@@ -100,21 +123,31 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @protocol ShowReportPeriodIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface ShowReportPeriodIntentHandling
 	{
-		// @required -(void)handleShowReportPeriod:(ShowReportPeriodIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportPeriodIntentResponse * _Nonnull))completion;
+		// @required -(void)handleShowReportPeriod:(ShowReportPeriodIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportPeriodIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleShowReportPeriod:completion:")]
 		void HandleShowReportPeriod (ShowReportPeriodIntent intent, Action<ShowReportPeriodIntentResponse> completion);
 
-		// @optional -(void)confirmShowReportPeriod:(ShowReportPeriodIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportPeriodIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmShowReportPeriod:(ShowReportPeriodIntent * _Nonnull)intent completion:(void (^ _Nonnull)(ShowReportPeriodIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmShowReportPeriod:completion:")]
 		void ConfirmShowReportPeriod (ShowReportPeriodIntent intent, Action<ShowReportPeriodIntentResponse> completion);
 	}
 
 	// @interface ShowReportPeriodIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface ShowReportPeriodIntentResponse
@@ -124,7 +157,7 @@ namespace Toggl.iOS.Intents
 		[DesignatedInitializer]
 		IntPtr Constructor (ShowReportPeriodIntentResponseCode code, [NullAllowed] NSUserActivity userActivity);
 
-		// +(instancetype _Nonnull)successIntentResponseWithPeriod:(ShowReportPeriodReportPeriod)period;
+		// +(instancetype _Nonnull)successIntentResponseWithPeriod:(ShowReportPeriodReportPeriod)period __attribute__((swift_name("success(period:)")));
 		[Static]
 		[Export ("successIntentResponseWithPeriod:")]
 		ShowReportPeriodIntentResponse SuccessIntentResponseWithPeriod (ShowReportPeriodReportPeriod period);
@@ -139,6 +172,7 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @interface StartTimerFromClipboardIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface StartTimerFromClipboardIntent
 	{
@@ -154,27 +188,41 @@ namespace Toggl.iOS.Intents
 		[NullAllowed, Export ("projectId", ArgumentSemantic.Copy)]
 		INObject ProjectId { get; set; }
 
+		// @property (readwrite, copy, nonatomic) INObject * _Nullable taskId;
+		[NullAllowed, Export ("taskId", ArgumentSemantic.Copy)]
+		INObject TaskId { get; set; }
+
 		// @property (readwrite, copy, nonatomic) NSArray<INObject *> * _Nullable tags;
 		[NullAllowed, Export ("tags", ArgumentSemantic.Copy)]
 		INObject[] Tags { get; set; }
 	}
 
 	// @protocol StartTimerFromClipboardIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface StartTimerFromClipboardIntentHandling
 	{
-		// @required -(void)handleStartTimerFromClipboard:(StartTimerFromClipboardIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerFromClipboardIntentResponse * _Nonnull))completion;
+		// @required -(void)handleStartTimerFromClipboard:(StartTimerFromClipboardIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerFromClipboardIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleStartTimerFromClipboard:completion:")]
 		void HandleStartTimerFromClipboard (StartTimerFromClipboardIntent intent, Action<StartTimerFromClipboardIntentResponse> completion);
 
-		// @optional -(void)confirmStartTimerFromClipboard:(StartTimerFromClipboardIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerFromClipboardIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmStartTimerFromClipboard:(StartTimerFromClipboardIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerFromClipboardIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmStartTimerFromClipboard:completion:")]
 		void ConfirmStartTimerFromClipboard (StartTimerFromClipboardIntent intent, Action<StartTimerFromClipboardIntentResponse> completion);
 	}
 
 	// @interface StartTimerFromClipboardIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface StartTimerFromClipboardIntentResponse
@@ -190,6 +238,7 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @interface StartTimerIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface StartTimerIntent
 	{
@@ -209,27 +258,41 @@ namespace Toggl.iOS.Intents
 		[NullAllowed, Export ("projectId", ArgumentSemantic.Copy)]
 		INObject ProjectId { get; set; }
 
+		// @property (readwrite, copy, nonatomic) INObject * _Nullable taskId;
+		[NullAllowed, Export ("taskId", ArgumentSemantic.Copy)]
+		INObject TaskId { get; set; }
+
 		// @property (readwrite, copy, nonatomic) NSArray<INObject *> * _Nullable tags;
 		[NullAllowed, Export ("tags", ArgumentSemantic.Copy)]
 		INObject[] Tags { get; set; }
 	}
 
 	// @protocol StartTimerIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface StartTimerIntentHandling
 	{
-		// @required -(void)handleStartTimer:(StartTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerIntentResponse * _Nonnull))completion;
+		// @required -(void)handleStartTimer:(StartTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleStartTimer:completion:")]
 		void HandleStartTimer (StartTimerIntent intent, Action<StartTimerIntentResponse> completion);
 
-		// @optional -(void)confirmStartTimer:(StartTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmStartTimer:(StartTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StartTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmStartTimer:completion:")]
 		void ConfirmStartTimer (StartTimerIntent intent, Action<StartTimerIntentResponse> completion);
 	}
 
 	// @interface StartTimerIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface StartTimerIntentResponse
@@ -245,27 +308,38 @@ namespace Toggl.iOS.Intents
 	}
 
 	// @interface StopTimerIntent : INIntent
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntent))]
 	interface StopTimerIntent
 	{
 	}
 
 	// @protocol StopTimerIntentHandling <NSObject>
-	[Protocol, Model]
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Watch (5,0), NoTV, NoMac, iOS (12,0)]
+	[Protocol]
 	[BaseType (typeof(NSObject))]
 	interface StopTimerIntentHandling
 	{
-		// @required -(void)handleStopTimer:(StopTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StopTimerIntentResponse * _Nonnull))completion;
+		// @required -(void)handleStopTimer:(StopTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StopTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("handle(intent:completion:)")));
 		[Abstract]
 		[Export ("handleStopTimer:completion:")]
 		void HandleStopTimer (StopTimerIntent intent, Action<StopTimerIntentResponse> completion);
 
-		// @optional -(void)confirmStopTimer:(StopTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StopTimerIntentResponse * _Nonnull))completion;
+		// @optional -(void)confirmStopTimer:(StopTimerIntent * _Nonnull)intent completion:(void (^ _Nonnull)(StopTimerIntentResponse * _Nonnull))completion __attribute__((swift_name("confirm(intent:completion:)")));
 		[Export ("confirmStopTimer:completion:")]
 		void ConfirmStopTimer (StopTimerIntent intent, Action<StopTimerIntentResponse> completion);
 	}
 
 	// @interface StopTimerIntentResponse : INIntentResponse
+	[Watch (5,0), NoTV, NoMac, iOS (12,0)]
 	[BaseType (typeof(INIntentResponse))]
 	[DisableDefaultCtor]
 	interface StopTimerIntentResponse
@@ -275,12 +349,12 @@ namespace Toggl.iOS.Intents
 		[DesignatedInitializer]
 		IntPtr Constructor (StopTimerIntentResponseCode code, [NullAllowed] NSUserActivity userActivity);
 
-		// +(instancetype _Nonnull)successIntentResponseWithEntryDescription:(NSString * _Nonnull)entryDescription entryDurationString:(NSString * _Nonnull)entryDurationString;
+		// +(instancetype _Nonnull)successIntentResponseWithEntryDescription:(NSString * _Nonnull)entryDescription entryDurationString:(NSString * _Nonnull)entryDurationString __attribute__((swift_name("success(entryDescription:entryDurationString:)")));
 		[Static]
 		[Export ("successIntentResponseWithEntryDescription:entryDurationString:")]
 		StopTimerIntentResponse SuccessIntentResponseWithEntryDescription (string entryDescription, string entryDurationString);
 
-		// +(instancetype _Nonnull)successWithEmptyDescriptionIntentResponseWithEntryDurationString:(NSString * _Nonnull)entryDurationString;
+		// +(instancetype _Nonnull)successWithEmptyDescriptionIntentResponseWithEntryDurationString:(NSString * _Nonnull)entryDurationString __attribute__((swift_name("successWithEmptyDescription(entryDurationString:)")));
 		[Static]
 		[Export ("successWithEmptyDescriptionIntentResponseWithEntryDurationString:")]
 		StopTimerIntentResponse SuccessWithEmptyDescriptionIntentResponseWithEntryDurationString (string entryDurationString);
