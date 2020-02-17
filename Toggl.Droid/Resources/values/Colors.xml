@@ -106,4 +106,8 @@
   <!-- Login/Sign Up -->
   <color name="loginSignUpOptionsDivider">#F3F3F3</color>
 
+  <!-- Onboarding -->
+  <color name="onboardingPagerBackgroundColor">#82D0CB</color>
+  <color name="onboardingOutlineButtonTextColor">#ffffff</color>
+  
 </resources>
