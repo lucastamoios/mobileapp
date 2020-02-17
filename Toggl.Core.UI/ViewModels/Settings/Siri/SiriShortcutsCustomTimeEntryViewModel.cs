@@ -35,7 +35,7 @@ namespace Toggl.Core.UI.ViewModels.Settings
         public BehaviorRelay<string> Description { get; } = new BehaviorRelay<string>(string.Empty);
         public BehaviorRelay<IThreadSafeWorkspace> Workspace { get; } = new BehaviorRelay<IThreadSafeWorkspace>(null);
         public BehaviorRelay<IThreadSafeProject> Project { get; } = new BehaviorRelay<IThreadSafeProject>(null);
-        public BehaviorRelay<long?> TaskId { get; } = new BehaviorRelay<long?>(null);
+        public BehaviorRelay<IThreadSafeTask> Task { get; } = new BehaviorRelay<IThreadSafeTask>(null);
         public BehaviorRelay<IEnumerable<IThreadSafeTag>> Tags { get; } =
             new BehaviorRelay<IEnumerable<IThreadSafeTag>>(Enumerable.Empty<IThreadSafeTag>());
         public BehaviorRelay<bool> PasteFromClipboard { get; } = new BehaviorRelay<bool>(false);
@@ -128,25 +128,24 @@ namespace Toggl.Core.UI.ViewModels.Settings
             }
 
             var chosenProjectParams = await Navigate<SelectProjectViewModel, SelectProjectParameter, SelectProjectParameter>(
-                    new SelectProjectParameter(Project.Value?.Id, TaskId.Value, workspaceId, false));
+                    new SelectProjectParameter(Project.Value?.Id, Task.Value?.Id, workspaceId, false));
 
             if (chosenProjectParams.WorkspaceId == workspaceId
                 && chosenProjectParams.ProjectId == Project.Value?.Id
-                && chosenProjectParams.TaskId == TaskId.Value)
+                && chosenProjectParams.TaskId == Task.Value?.Id)
             {
                 return;
             }
 
-            TaskId.Accept(chosenProjectParams.TaskId);
-
             var chosenWorkspace = await interactorFactory.GetWorkspaceById(chosenProjectParams.WorkspaceId).Execute();
 
-            if (!(chosenProjectParams.ProjectId is long chosenProjectProjectId))
+            if (!(chosenProjectParams.ProjectId is long chosenProjectProjectId) || !(chosenProjectParams.TaskId is long chosenProjectTaskId))
             {
                 projectClientTaskInfo.OnNext(EditTimeEntryViewModel.ProjectClientTaskInfo.Empty);
                 clearTagsIfNeeded(workspaceId, chosenProjectParams.WorkspaceId);
                 Workspace.Accept(chosenWorkspace);
                 Project.Accept(null);
+                Task.Accept(null);
                 return;
             }
 
@@ -154,7 +153,7 @@ namespace Toggl.Core.UI.ViewModels.Settings
             clearTagsIfNeeded(workspaceId, project.WorkspaceId);
 
             var task = chosenProjectParams.TaskId.HasValue
-                ? await interactorFactory.GetTaskById(chosenProjectParams.TaskId.Value).Execute()
+                ? await interactorFactory.GetTaskById(chosenProjectTaskId).Execute()
                 : null;
 
             var taskName = task?.Name ?? string.Empty;
@@ -169,6 +168,7 @@ namespace Toggl.Core.UI.ViewModels.Settings
 
             Workspace.Accept(chosenWorkspace);
             Project.Accept(project);
+            Task.Accept(task);
         }
 
         private async Task selectClipboard()
