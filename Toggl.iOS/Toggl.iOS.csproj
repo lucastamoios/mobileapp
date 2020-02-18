@@ -1478,6 +1478,7 @@
     <InterfaceDefinition Include="Cells\MainLog\SuggestionLogViewCell.xib" />
     <InterfaceDefinition Include="Cells\MainLog\SuggestionsHeaderView.xib" />
     <InterfaceDefinition Include="Cells\MainLog\UserFeedbackTableViewCell.xib" />
+    <InterfaceDefinition Include="ViewControllers\OnboardingViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -2100,6 +2101,10 @@
     <Compile Include="Cells\MainLog\UserFeedbackTableViewCell.cs" />
     <Compile Include="Cells\MainLog\UserFeedbackTableViewCell.designer.cs">
       <DependentUpon>UserFeedbackTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\OnboardingViewController.cs" />
+    <Compile Include="ViewControllers\OnboardingViewController.designer.cs">
+      <DependentUpon>OnboardingViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
