@@ -1,21 +1,66 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace Toggl.iOS.ViewControllers
 {
-    [Register("OnboardingViewController")]
-    partial class OnboardingViewController
-    {
-        void ReleaseDesignerOutlets()
-        {
-        }
-    }
+	[Register ("OnboardingViewController")]
+	partial class OnboardingViewController
+	{
+		[Outlet]
+		UIKit.UIStackView ButtonsStackView { get; set; }
+
+		[Outlet]
+		UIKit.UIButton ContinueWithEmailButton { get; set; }
+
+		[Outlet]
+		UIKit.UIButton ContinueWithGoogleButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel MessageLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView TogglLogo { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView TogglmanImage { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (TogglLogo != null) {
+				TogglLogo.Dispose ();
+				TogglLogo = null;
+			}
+
+			if (TogglmanImage != null) {
+				TogglmanImage.Dispose ();
+				TogglmanImage = null;
+			}
+
+			if (MessageLabel != null) {
+				MessageLabel.Dispose ();
+				MessageLabel = null;
+			}
+
+			if (ButtonsStackView != null) {
+				ButtonsStackView.Dispose ();
+				ButtonsStackView = null;
+			}
+
+			if (ContinueWithEmailButton != null) {
+				ContinueWithEmailButton.Dispose ();
+				ContinueWithEmailButton = null;
+			}
+
+			if (ContinueWithGoogleButton != null) {
+				ContinueWithGoogleButton.Dispose ();
+				ContinueWithGoogleButton = null;
+			}
+		}
+	}
 }

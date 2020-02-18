@@ -12,6 +12,7 @@ using UserNotifications;
 using Firebase.CloudMessaging;
 using Google.SignIn;
 using System.Reactive;
+using Toggl.iOS.ViewControllers;
 
 namespace Toggl.iOS
 {
@@ -100,6 +101,11 @@ namespace Toggl.iOS
 
         private void navigateAccordingToAccessLevel(AccessLevel accessLevel, AppStart app)
         {
+            var onboarding = new OnboardingViewController();
+            Window.RootViewController = onboarding;
+            Window.MakeKeyAndVisible();
+            return;
+
             if (accessLevel == AccessLevel.LoggedIn) app.ForceFullSync();
 
             var vc = accessLevel switch

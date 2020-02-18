@@ -1486,6 +1486,7 @@
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
     <BundleResource Include="RemoteConfigDefaults.plist" />
+    <BundleResource Include="Resources\togglman.gif" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\SiriIntentErrorTrackingEvent.cs" />
@@ -2236,6 +2237,7 @@
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartTotal.colorset\" />
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartFilledPlaceholder.colorset\" />
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartTotalPlaceholder.colorset\" />
+    <Folder Include="Resources\Images.xcassets\gifTogglman.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="GoogleService-Info.plist" />
