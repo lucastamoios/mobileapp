@@ -247,6 +247,14 @@ namespace Toggl.Droid.Views.Calendar
 
         protected override void OnDraw(Canvas canvas)
         {
+            var invalidItemsCount = calendarItems.Count(item => item.Id == "");
+            if (!itemEditInEditMode.IsValid && invalidItemsCount > 0)
+            {
+                var validItems = calendarItems.Where(item => item.Id != "").ToImmutableList();
+                updateItemsAndRecalculateEventsAttrs(validItems);
+                return;
+            }
+
             base.OnDraw(canvas);
             viewFrame.Set(0f, scrollOffset, Width, scrollOffset + Height);
             topAreaTriggerLine = viewFrame.Top + distanceFromEdgesToTriggerAutoScroll;
