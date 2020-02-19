@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using Toggl.iOS.Extensions;
+using UIKit;
 
 namespace Toggl.iOS.ViewControllers
 {
@@ -6,6 +7,12 @@ namespace Toggl.iOS.ViewControllers
     {
         public OnboardingViewController() : base("OnboardingViewController", null)
         {
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            TogglmanImage.SetAnimatedImage("togglman");
         }
     }
 }
