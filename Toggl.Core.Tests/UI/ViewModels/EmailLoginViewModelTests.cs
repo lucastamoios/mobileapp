@@ -25,9 +25,9 @@ using Xunit;
 
 namespace Toggl.Core.Tests.UI.ViewModels
 {
-    public sealed class LoginViewModelTests
+    public sealed class EmailLoginViewModelTests
     {
-        public abstract class EmailLoginViewModelTest : BaseViewModelWithInputTests<LoginViewModel, CredentialsParameter>
+        public abstract class EmailLoginViewModelTest : BaseViewModelWithInputTests<EmailLoginViewModel, CredentialsParameter>
         {
             protected Email ValidEmail { get; } = Email.From("person@company.com");
             protected Email InvalidEmail { get; } = Email.From("this is not an email");
@@ -37,8 +37,8 @@ namespace Toggl.Core.Tests.UI.ViewModels
 
             protected ILastTimeUsageStorage LastTimeUsageStorage { get; } = Substitute.For<ILastTimeUsageStorage>();
 
-            protected override LoginViewModel CreateViewModel()
-                => new LoginViewModel(
+            protected override EmailLoginViewModel CreateViewModel()
+                => new EmailLoginViewModel(
                     UserAccessManager,
                     AnalyticsService,
                     OnboardingStorage,
@@ -85,7 +85,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 var interactorFactory = useInteractorFactory ? InteractorFactory : null;
 
                 Action tryingToConstructWithEmptyParameters =
-                    () => new LoginViewModel(userAccessManager,
+                    () => new EmailLoginViewModel(userAccessManager,
                                              analyticsSerivce,
                                              onboardingStorage,
                                              navigationService,
@@ -340,42 +340,6 @@ namespace Toggl.Core.Tests.UI.ViewModels
                         .Track(exception.GetType().FullName, exception.Message);
                     AnalyticsService.Received().TrackAnonymized(exception);
                 }
-            }
-        }
-
-        public sealed class TheTogglePasswordVisibilityMethod : EmailLoginViewModelTest
-        {
-            [Fact, LogIfTooSlow]
-            public void SetsTheIsPasswordMaskedToFalseWhenItIsTrue()
-            {
-                var observer = TestScheduler.CreateObserver<bool>();
-
-                ViewModel.IsPasswordMasked.Subscribe(observer);
-                ViewModel.TogglePasswordVisibility();
-
-                TestScheduler.Start();
-                observer.Messages.AssertEqual(
-                    ReactiveTest.OnNext(1, true),
-                    ReactiveTest.OnNext(2, false)
-                );
-            }
-
-            [Fact, LogIfTooSlow]
-            public void SetsTheIsPasswordMaskedToTrueWhenItIsFalse()
-            {
-                var observer = TestScheduler.CreateObserver<bool>();
-
-                ViewModel.IsPasswordMasked.Subscribe(observer);
-                ViewModel.TogglePasswordVisibility();
-
-                ViewModel.TogglePasswordVisibility();
-
-                TestScheduler.Start();
-                observer.Messages.AssertEqual(
-                    ReactiveTest.OnNext(1, true),
-                    ReactiveTest.OnNext(2, false),
-                    ReactiveTest.OnNext(3, true)
-                );
             }
         }
 
