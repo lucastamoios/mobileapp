@@ -31,7 +31,7 @@ namespace Toggl.Droid.Presentation
             typeof(SelectProjectViewModel),
             typeof(SelectTagsViewModel),
             typeof(SendFeedbackViewModel),
-            typeof(SignupViewModel),
+            typeof(OldSignupViewModel),
             typeof(StartTimeEntryViewModel),
             typeof(TokenResetViewModel),
             typeof(SettingsViewModel),
@@ -57,7 +57,7 @@ namespace Toggl.Droid.Presentation
             [typeof(SendFeedbackViewModel)] = new ActivityPresenterInfo(typeof(SendFeedbackActivity)),
             [typeof(SettingsViewModel)] = new ActivityPresenterInfo(typeof(SettingsActivity)),
             [typeof(IndependentCalendarSettingsViewModel)] = new ActivityPresenterInfo(typeof(IndependentCalendarSettingsActivity)),
-            [typeof(SignupViewModel)] = new ActivityPresenterInfo(typeof(SignUpActivity), clearBackStackFlags),
+            [typeof(OldSignupViewModel)] = new ActivityPresenterInfo(typeof(SignUpActivity), clearBackStackFlags),
             [typeof(StartTimeEntryViewModel)] = new ActivityPresenterInfo(typeof(StartTimeEntryActivity)),
             [typeof(TokenResetViewModel)] = new ActivityPresenterInfo(typeof(TokenResetActivity), clearBackStackFlags)
         };

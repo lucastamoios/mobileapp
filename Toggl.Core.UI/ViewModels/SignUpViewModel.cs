@@ -1,5 +1,9 @@
 using System;
+using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -15,7 +19,6 @@ using Toggl.Networking.Exceptions;
 using Toggl.Shared;
 using Toggl.Shared.Extensions;
 using Toggl.Shared.Extensions.Reactive;
-using Toggl.Shared.Models;
 using Toggl.Storage.Settings;
 
 namespace Toggl.Core.UI.ViewModels
@@ -215,6 +218,10 @@ namespace Toggl.Core.UI.ViewModels
         }
 
         private async Task<long?> requestAcceptanceOfTermsAndConditionsAndSetCountry()
-            => countryId ?? (await Navigate<TermsAndCountryViewModel, ICountry?>())?.Id;
+        {
+            return countryId.HasValue
+                ? countryId
+                : 1; //await Navigate<TermsAndCountryViewModel, Country?>();
+        }
     }
 }
