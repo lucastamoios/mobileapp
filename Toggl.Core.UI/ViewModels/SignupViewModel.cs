@@ -19,6 +19,7 @@ using Toggl.Networking.Exceptions;
 using Toggl.Shared;
 using Toggl.Shared.Extensions;
 using Toggl.Shared.Extensions.Reactive;
+using Toggl.Shared.Models;
 using Toggl.Storage.Settings;
 
 namespace Toggl.Core.UI.ViewModels
@@ -219,9 +220,7 @@ namespace Toggl.Core.UI.ViewModels
 
         private async Task<long?> requestAcceptanceOfTermsAndConditionsAndSetCountry()
         {
-            return countryId.HasValue
-                ? countryId
-                : 1; //await Navigate<TermsAndCountryViewModel, Country?>();
+            return countryId ?? (await Navigate<TermsAndCountryViewModel, ICountry?>()).Id;
         }
     }
 }

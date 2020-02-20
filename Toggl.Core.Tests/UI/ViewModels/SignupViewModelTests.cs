@@ -17,6 +17,7 @@ using Toggl.Core.UI.ViewModels;
 using Toggl.Networking.Exceptions;
 using Toggl.Networking.Network;
 using Toggl.Shared;
+using Toggl.Shared.Models;
 using Xunit;
 using Task = System.Threading.Tasks.Task;
 
@@ -42,6 +43,12 @@ namespace Toggl.Core.Tests.UI.ViewModels
                     OnboardingStorage,
                     LastTimeUsageStorage,
                     ErrorHandlingService);
+
+            protected override void AdditionalSetup()
+            {
+                var container = new TestDependencyContainer { MockSyncManager = SyncManager };
+                TestDependencyContainer.Initialize(container);
+            }
         }
 
         public sealed class TheConstructor : SignUpViewModelTest
@@ -244,7 +251,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             [InlineData("not an email", "123")]
             [InlineData("not an email", "1234567")]
             [InlineData("person@company.com", "123")]
-            public void DoesNotShowTheTermsAndCountryViewModelIfInvalidCredentialsAreProvided(string email, string password)
+            public async Task DoesNotShowTheTermsAndCountryViewModelIfInvalidCredentialsAreProvided(string email, string password)
             {
                 ViewModel.Email.Accept(Email.From(email));
                 ViewModel.Password.Accept(Password.From(password));
@@ -252,7 +259,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 ViewModel.SignUp.Execute();
                 TestScheduler.Start();
 
-                // await NavigationService.DidNotReceive().Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View);
+                await NavigationService.DidNotReceive().Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View);
             }
 
             [Fact, LogIfTooSlow]
@@ -264,13 +271,13 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 ViewModel.SignUp.Execute();
                 TestScheduler.Start();
 
-                // await NavigationService.Received().Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View);
+                await NavigationService.Received().Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View);
             }
 
             [Fact, LogIfTooSlow]
             public void DoesNotTryToSignUpIfUserDoesNotAcceptTermsOfService()
             {
-                // NavigationService.Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View).Returns(null);
+                NavigationService.Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View).Returns((ICountry?)null);
 
                 ViewModel.SignUp.Execute();
                 TestScheduler.Start();
@@ -286,7 +293,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             [Fact, LogIfTooSlow]
             public void ShowsTheTermsOfServiceViewModelOnlyOnceIfUserAcceptsTheTerms()
             {
-                // NavigationService.Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View).Returns(new Country("Latvia", "LV", 70));
+                NavigationService.Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View).Returns(new Country("Latvia", "LV", 70));
                 UserAccessManager
                     .SignUp(Arg.Any<Email>(), Arg.Any<Password>(), Arg.Any<bool>(), Arg.Any<int>(), Arg.Any<string>())
                     .Returns(Observable.Throw<Unit>(new Exception()));
@@ -294,7 +301,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 ViewModel.SignUp.ExecuteSequentially(2).Subscribe();
                 TestScheduler.Start();
 
-                // NavigationService.Received(1).Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View);
+                NavigationService.Received(1).Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View);
             }
 
             public sealed class WhenUserAcceptsTheTermsOfService : SignUpViewModelTest
@@ -305,7 +312,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 {
                     base.AdditionalSetup();
 
-                    // NavigationService.Navigate<TermsAndCountryViewModel, Country?>(View).Returns(country);
+                    NavigationService.Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, View).Returns(country);
                 }
 
                 protected override void AdditionalViewModelSetup()
@@ -381,10 +388,10 @@ namespace Toggl.Core.Tests.UI.ViewModels
                     }
                 }
 
-                public sealed class WhenSignUpFails : OldSignUpViewModelTests.OldSignUpViewModelTest
+                public sealed class WhenSignUpFails : SignUpViewModelTest
                 {
                     private void prepareException(Exception exception)
-                    => UserAccessManager
+                        => UserAccessManager
                             .SignUp(Arg.Any<Email>(), Arg.Any<Password>(), Arg.Any<bool>(), Arg.Any<int>(), Arg.Any<string>())
                             .Returns(Observable.Throw<Unit>(exception));
 
@@ -392,12 +399,10 @@ namespace Toggl.Core.Tests.UI.ViewModels
                     {
                         base.AdditionalViewModelSetup();
 
-                        ViewModel.Initialize(DefaultParameters).Wait();
+                        ViewModel.Email.Accept(ValidEmail);
+                        ViewModel.Password.Accept(ValidPassword);
 
-                        ViewModel.SetEmail(ValidEmail);
-                        ViewModel.SetPassword(ValidPassword);
-
-                        // NavigationService.Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View).Returns(country);
+                        NavigationService.Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View).Returns(country);
                     }
 
                     [Fact, LogIfTooSlow]
@@ -405,44 +410,34 @@ namespace Toggl.Core.Tests.UI.ViewModels
                     {
                         var observer = TestScheduler.CreateObserver<bool>();
                         ViewModel.IsLoading.Subscribe(observer);
-
                         prepareException(new Exception());
 
-                        ViewModel.Signup.Execute();
-
+                        ViewModel.SignUp.Execute();
                         TestScheduler.Start();
-                        observer.Messages.AssertEqual(
-                            ReactiveTest.OnNext(1, false),
-                            ReactiveTest.OnNext(2, true),
-                            ReactiveTest.OnNext(3, false)
-                        );
+
+                        observer.Values().Should().BeEquivalentTo(new[] { false, true, false });
                     }
 
                     [Fact, LogIfTooSlow]
                     public void SetsIncorrectEmailOrPasswordErrorIfReceivedUnauthorizedException()
                     {
                         var observer = TestScheduler.CreateObserver<string>();
-                        ViewModel.ErrorMessage.Subscribe(observer);
-
+                        ViewModel.SignUpError.Subscribe(observer);
                         prepareException(new UnauthorizedException(
                             ApiExceptions.Request,
                             ApiExceptions.Response));
 
-                        ViewModel.Signup.Execute();
-
+                        ViewModel.SignUp.Execute();
                         TestScheduler.Start();
-                        observer.Messages.AssertEqual(
-                            ReactiveTest.OnNext(1, ""),
-                            ReactiveTest.OnNext(2, Resources.IncorrectEmailOrPassword)
-                        );
+
+                        observer.Values().Should().BeEquivalentTo(new[] { "", Resources.IncorrectEmailOrPassword });
                     }
 
                     [Fact, LogIfTooSlow]
                     public void SetsEmailAlreadyUsedErrorIfReceivedEmailIsAlreadyUsedException()
                     {
                         var observer = TestScheduler.CreateObserver<string>();
-                        ViewModel.ErrorMessage.Subscribe(observer);
-
+                        ViewModel.SignUpError.Subscribe(observer);
                         var request = Substitute.For<IRequest>();
                         request.Endpoint.Returns(new Uri("https://any.url.com"));
                         prepareException(new EmailIsAlreadyUsedException(
@@ -452,30 +447,23 @@ namespace Toggl.Core.Tests.UI.ViewModels
                             )
                         ));
 
-                        ViewModel.Signup.Execute();
-
+                        ViewModel.SignUp.Execute();
                         TestScheduler.Start();
-                        observer.Messages.AssertEqual(
-                            ReactiveTest.OnNext(1, ""),
-                            ReactiveTest.OnNext(2, Resources.EmailIsAlreadyUsedError)
-                        );
+
+                        observer.Values().Should().BeEquivalentTo(new[] { "", Resources.EmailIsAlreadyUsedError });
                     }
 
                     [Fact, LogIfTooSlow]
                     public void SetsGenericErrorForAnyOtherException()
                     {
                         var observer = TestScheduler.CreateObserver<string>();
-                        ViewModel.ErrorMessage.Subscribe(observer);
-
+                        ViewModel.SignUpError.Subscribe(observer);
                         prepareException(new Exception());
 
-                        ViewModel.Signup.Execute();
-
+                        ViewModel.SignUp.Execute();
                         TestScheduler.Start();
-                        observer.Messages.AssertEqual(
-                            ReactiveTest.OnNext(1, ""),
-                            ReactiveTest.OnNext(2, Resources.GenericSignUpError)
-                        );
+
+                        observer.Values().Should().BeEquivalentTo(new[] { "", Resources.GenericSignUpError });
                     }
 
                     [Fact, LogIfTooSlow]
@@ -484,26 +472,12 @@ namespace Toggl.Core.Tests.UI.ViewModels
                         var exception = new Exception();
                         prepareException(exception);
 
-                        ViewModel.Signup.Execute();
-
+                        ViewModel.SignUp.Execute();
                         TestScheduler.Start();
+
                         AnalyticsService.UnknownSignUpFailure.Received()
                             .Track(exception.GetType().FullName, exception.Message);
                         AnalyticsService.Received().TrackAnonymized(exception);
-                    }
-
-                    [Fact, LogIfTooSlow]
-                    public void DoesNotFiresSuccessfulSignUpEvent()
-                    {
-                        var observer = TestScheduler.CreateObserver<Unit>();
-                        ViewModel.SuccessfulSignup.Subscribe(observer);
-
-                        prepareException(new Exception());
-
-                        ViewModel.Signup.Execute();
-
-                        TestScheduler.Start();
-                        observer.Messages.Count.Should().Be(0);
                     }
                 }
             }
