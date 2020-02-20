@@ -129,6 +129,14 @@
 Powerful reporting.</value>
         <comment>Message shown in the onboarding view</comment>
     </data>
+    <data name="ContinueWithGoogle" xml:space="preserve">
+        <value>Continue with Google</value>
+        <comment>Text of the button that allows to enter your account using Google from the onboarding view</comment>
+    </data>
+    <data name="ContinueWithEmail" xml:space="preserve">
+        <value>Continue with Email</value>
+        <comment>Text of the button that allows to enter your account using email and password from the onboarding view</comment>
+    </data>
     <data name="LoginTitle" xml:space="preserve">
         <value>Log in</value>
         <comment>Title of the login view</comment>

@@ -61,6 +61,7 @@ namespace Toggl.iOS.ViewControllers
         {
             // Continue with email
             ContinueWithEmailButton.TitleLabel.Font = UIFont.SystemFontOfSize(17, UIFontWeight.Medium);
+            ContinueWithEmailButton.SetTitle(Resources.ContinueWithEmail, UIControlState.Normal);
             ContinueWithEmailButton.SetTitleColor(ColorAssets.InverseText, UIControlState.Normal);
             ContinueWithEmailButton.Layer.CornerRadius = 4;
             ContinueWithEmailButton.Layer.BorderWidth = 1;
@@ -68,6 +69,7 @@ namespace Toggl.iOS.ViewControllers
 
             // Continue with google
             ContinueWithGoogleButton.TitleLabel.Font = UIFont.SystemFontOfSize(17, UIFontWeight.Medium);
+            ContinueWithGoogleButton.SetTitle(Resources.ContinueWithGoogle, UIControlState.Normal);
             ContinueWithGoogleButton.SetTitleColor(ColorAssets.Text, UIControlState.Normal);
             ContinueWithGoogleButton.Layer.MasksToBounds = false;
             ContinueWithGoogleButton.Layer.CornerRadius = 4;
