@@ -1,4 +1,6 @@
 using System;
+using Android.App;
+using Android.Content.PM;
 using Android.Runtime;
 using Toggl.Core.UI.ViewModels;
 using Toggl.Droid.Extensions.Reactive;
@@ -7,10 +9,13 @@ using Toggl.Shared.Extensions;
 
 namespace Toggl.Droid.Activities
 {
+    [Activity(Theme = "@style/Theme.Splash",
+        ScreenOrientation = ScreenOrientation.Portrait,
+        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
     public partial class OnboardingActivity : ReactiveActivity<OnboardingViewModel>
     {
         public OnboardingActivity() : base(
-            Resource.Layout.OnboardingActivity, Resource.Style.AppTheme, Transitions.Fade
+            Resource.Layout.OnboardingActivity, Resource.Style.AppTheme_Onboarding, Transitions.Fade
             )
         { }
 

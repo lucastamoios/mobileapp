@@ -108,6 +108,7 @@
 
   <!-- Onboarding -->
   <color name="onboardingBackgroundColor">#91DCD0</color>
+  <color name="onboardingStatusBarColor">#7AB9AF</color>
   <color name="onboardingOverlayBackgroundColor">#1A9DDDD3</color>
   <color name="onboardingTogglManBorderHackColor">#CA91DCD0</color>
   <color name="onboardingOutlineButtonTextColor">#ffffff</color>
