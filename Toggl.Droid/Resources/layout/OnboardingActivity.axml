@@ -4,16 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/onboardingPagerBackgroundColor">
+    android:background="@color/onboardingBackgroundColor">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/onboardingPager"
-        android:layout_width="match_parent"
+    <SurfaceView
+        android:id="@+id/togglMan"
+        android:layout_width="275dp"
+        android:layout_height="276dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
+
+    <FrameLayout
+        android:id="@+id/borderOverlay"
+        android:layout_width="276dp"
+        android:layout_height="277dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/onboarding_toggl_man_border_hack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
+
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/onboardingOverlayBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/togglLogo"
+        android:layout_width="76dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_toggl_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="32dp"
+        android:maxLines="2"
+        android:textColor="@color/onboardingTitleTextColor"
+        android:textSize="38sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/togglLogo"
+        tools:text="Simple time tracking.\nPowerful reporting." />
 
     <LinearLayout
         android:id="@+id/continueWithGoogleButton"
@@ -44,10 +89,10 @@
             android:layout_marginStart="12dp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.02"
-            android:textColor="@color/primaryText"
+            tools:text="Sign in With Google"
+            android:textColor="@color/onboardingContainedButtonTextColor"
             android:textSize="17sp"
-            android:textStyle="normal"
-            tools:text="Sign in With Google" />
+            android:textStyle="normal" />
     </LinearLayout>
 
     <Button
@@ -59,12 +104,12 @@
         android:layout_marginBottom="28dp"
         android:background="@drawable/outline_button"
         android:letterSpacing="0.02"
+        tools:text="Continue with email"
         android:textAllCaps="false"
         android:textColor="@color/onboardingOutlineButtonTextColor"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="Continue with email" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
