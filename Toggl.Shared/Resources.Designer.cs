@@ -52,6 +52,12 @@ namespace Toggl.Shared {
             }
         }
         
+        public static string OnboardingMessageVariantA {
+            get {
+                return ResourceManager.GetString("OnboardingMessageVariantA", resourceCulture);
+            }
+        }
+        
         public static string LoginTitle {
             get {
                 return ResourceManager.GetString("LoginTitle", resourceCulture);

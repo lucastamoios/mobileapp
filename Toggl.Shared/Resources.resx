@@ -122,8 +122,13 @@
         <comment>@Invariant</comment>
     </data>
 
-    <!-- Login, SignUp, Forgot Password -->
+    <!-- Onboarding, Login, SignUp, Forgot Password -->
 
+    <data name="OnboardingMessageVariantA" xml:space="preserve">
+        <value>Simple time tracking.
+Powerful reporting.</value>
+        <comment>Message shown in the onboarding view</comment>
+    </data>
     <data name="LoginTitle" xml:space="preserve">
         <value>Log in</value>
         <comment>Title of the login view</comment>
