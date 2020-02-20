@@ -27,7 +27,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
 {
     public sealed class LoginViewModelTests
     {
-        public abstract class LoginViewModelTest : BaseViewModelWithInputTests<LoginViewModel, CredentialsParameter>
+        public abstract class EmailLoginViewModelTest : BaseViewModelWithInputTests<LoginViewModel, CredentialsParameter>
         {
             protected Email ValidEmail { get; } = Email.From("person@company.com");
             protected Email InvalidEmail { get; } = Email.From("this is not an email");
@@ -57,7 +57,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class TheConstructor : LoginViewModelTest
+        public sealed class TheConstructor : EmailLoginViewModelTest
         {
             [Xunit.Theory, LogIfTooSlow]
             [ConstructorData]
@@ -101,7 +101,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class TheLoginEnabledObservable : LoginViewModelTest
+        public sealed class TheLoginEnabledObservable : EmailLoginViewModelTest
         {
             [Xunit.Theory]
             [InlineData("invalid email address", "123")]
@@ -144,7 +144,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class TheLoginMethod : LoginViewModelTest
+        public sealed class TheLoginMethod : EmailLoginViewModelTest
         {
             [Fact, LogIfTooSlow]
             public void CallsTheUserAccessManagerWhenTheEmailAndPasswordAreValid()
@@ -171,7 +171,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 UserAccessManager.Received(1).Login(Arg.Any<Email>(), Arg.Any<Password>());
             }
 
-            public sealed class WhenLoginSucceeds : LoginViewModelTest
+            public sealed class WhenLoginSucceeds : EmailLoginViewModelTest
             {
                 public WhenLoginSucceeds()
                 {
@@ -234,7 +234,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 }
             }
 
-            public sealed class WhenLoginFails : LoginViewModelTest
+            public sealed class WhenLoginFails : EmailLoginViewModelTest
             {
                 public WhenLoginFails()
                 {
@@ -291,23 +291,6 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 }
 
                 [Fact, LogIfTooSlow]
-                public void SetsTheErrorMessageToNothingWhenGoogleLoginWasCanceled()
-                {
-                    var observer = TestScheduler.CreateObserver<string>();
-                    var exception = new GoogleLoginException(true);
-                    ViewModel.ErrorMessage.Subscribe(observer);
-                    UserAccessManager.Login(Arg.Any<Email>(), Arg.Any<Password>())
-                        .Returns(Observable.Throw<Unit>(exception));
-
-                    ViewModel.Login();
-
-                    TestScheduler.Start();
-                    observer.Messages.AssertEqual(
-                        ReactiveTest.OnNext(1, "")
-                    );
-                }
-
-                [Fact, LogIfTooSlow]
                 public void SetsTheErrorMessageToGenericLoginErrorForAnyOtherException()
                 {
                     var observer = TestScheduler.CreateObserver<string>();
@@ -360,118 +343,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class TheGoogleLoginMethod : LoginViewModelTest
-        {
-            [Fact, LogIfTooSlow]
-            public void CallsTheUserAccessManager()
-            {
-                ViewModel.GoogleLogin();
-
-                UserAccessManager.Received().LoginWithGoogle(Arg.Any<string>());
-            }
-
-            [Fact, LogIfTooSlow]
-            public void DoesNothingWhenThePageIsCurrentlyLoading()
-            {
-                var never = Observable.Never<Unit>();
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>()).Returns(never);
-                ViewModel.GoogleLogin();
-
-                ViewModel.GoogleLogin();
-
-                UserAccessManager.Received(1).LoginWithGoogle(Arg.Any<string>());
-            }
-
-            [Fact, LogIfTooSlow]
-            public void NavigatesToTheTimeEntriesViewModelWhenTheLoginSucceeds()
-            {
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Return(Unit.Default));
-
-                ViewModel.GoogleLogin();
-
-                NavigationService.Received().Navigate<MainTabBarViewModel>(ViewModel.View);
-            }
-
-            [Fact, LogIfTooSlow]
-            public void TracksGoogleLoginEvent()
-            {
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Return(Unit.Default));
-
-                ViewModel.GoogleLogin();
-
-                AnalyticsService.Received().Login.Track(AuthenticationMethod.Google);
-            }
-
-            [Fact, LogIfTooSlow]
-            public void StopsTheViewModelLoadStateWhenItErrors()
-            {
-                var observer = TestScheduler.CreateObserver<bool>();
-                ViewModel.IsLoading.Subscribe(observer);
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Throw<Unit>(new GoogleLoginException(false)));
-
-                ViewModel.GoogleLogin();
-
-                TestScheduler.Start();
-                observer.Messages.AssertEqual(
-                    ReactiveTest.OnNext(1, false),
-                    ReactiveTest.OnNext(2, true),
-                    ReactiveTest.OnNext(3, false)
-                );
-            }
-
-            [Fact, LogIfTooSlow]
-            public void DoesNotNavigateWhenTheLoginFails()
-            {
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Throw<Unit>(new GoogleLoginException(false)));
-
-                ViewModel.GoogleLogin();
-
-                NavigationService.DidNotReceive().Navigate<MainViewModel>(ViewModel.View);
-            }
-
-            [Fact, LogIfTooSlow]
-            public void DoesNotDisplayAnErrormessageWhenTheUserCancelsTheRequestOnTheGoogleService()
-            {
-                var observer = SchedulerProvider.TestScheduler.CreateObserver<string>();
-                ViewModel.ErrorMessage.Subscribe(observer);
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Throw<Unit>(new GoogleLoginException(true)));
-
-                ViewModel.GoogleLogin();
-
-                SchedulerProvider.TestScheduler.Start();
-                observer.Messages.AssertEqual(
-                    ReactiveTest.OnNext(1, "")
-                );
-            }
-
-            [FsCheck.Xunit.Property]
-            public void SavesTheTimeOfLastLogin(DateTimeOffset now)
-            {
-                TimeService.CurrentDateTime.Returns(now);
-                View.GetGoogleToken().Returns(Observable.Return(""));
-                UserAccessManager.LoginWithGoogle(Arg.Any<string>())
-                    .Returns(Observable.Return(Unit.Default));
-                var viewModel = CreateViewModel();
-                viewModel.AttachView(View);
-
-                viewModel.GoogleLogin();
-
-                LastTimeUsageStorage.Received().SetLogin(Arg.Is(now));
-            }
-        }
-
-        public sealed class TheTogglePasswordVisibilityMethod : LoginViewModelTest
+        public sealed class TheTogglePasswordVisibilityMethod : EmailLoginViewModelTest
         {
             [Fact, LogIfTooSlow]
             public void SetsTheIsPasswordMaskedToFalseWhenItIsTrue()
@@ -507,7 +379,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class TheSignupCommand : LoginViewModelTest
+        public sealed class TheSignupCommand : EmailLoginViewModelTest
         {
             [FsCheck.Xunit.Property]
             public void NavigatesToTheSignupViewModel(
@@ -532,7 +404,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
         }
 
-        public sealed class ThePrepareMethod : LoginViewModelTest
+        public sealed class ThePrepareMethod : EmailLoginViewModelTest
         {
             [FsCheck.Xunit.Property]
             public void SetsTheEmail(NonEmptyString emailString)
