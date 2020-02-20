@@ -8,8 +8,8 @@
 
     <SurfaceView
         android:id="@+id/togglMan"
-        android:layout_width="275dp"
-        android:layout_height="276dp"
+        android:layout_width="260dp"
+        android:layout_height="277dp"
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -17,8 +17,8 @@
 
     <FrameLayout
         android:id="@+id/borderOverlay"
-        android:layout_width="276dp"
-        android:layout_height="277dp"
+        android:layout_width="261dp"
+        android:layout_height="278dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/onboarding_toggl_man_border_hack"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -24,7 +24,7 @@ namespace Toggl.Droid.Activities
             onboardingSurfaceView = FindViewById<SurfaceView>(Resource.Id.togglMan);
             continueWithGoogleButton = FindViewById(Resource.Id.continueWithGoogleButton);
             continueWithEmailButton = FindViewById<Button>(Resource.Id.continueWithEmailButton);
-            
+
             onboardingSurfaceView.Holder.AddCallback(this);
         }
 
@@ -41,6 +41,7 @@ namespace Toggl.Droid.Activities
             }
 
             mediaPlayer = MediaPlayer.Create(ApplicationContext, Resource.Raw.togglman);
+            mediaPlayer.SetVideoScalingMode(VideoScalingMode.ScaleToFitWithCropping);
             mediaPlayer.SetDisplay(holder);
             mediaPlayer.Start();
             mediaPlayer.Completion += replayVideo;
