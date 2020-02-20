@@ -3,7 +3,9 @@ using CoreGraphics;
 using Foundation;
 using Toggl.Core.UI.ViewModels;
 using Toggl.iOS.Extensions;
+using Toggl.iOS.Extensions.Reactive;
 using Toggl.Shared;
+using Toggl.Shared.Extensions;
 using UIKit;
 
 namespace Toggl.iOS.ViewControllers
@@ -21,6 +23,14 @@ namespace Toggl.iOS.ViewControllers
             TogglmanImage.SetAnimatedImage("togglman");
             configureMessageAppearance();
             configureButtonsAppearance();
+
+            ContinueWithEmailButton.Rx().Tap()
+                .Subscribe(ViewModel.ContinueWithEmail.Inputs)
+                .DisposedBy(DisposeBag);
+
+            ContinueWithGoogleButton.Rx().Tap()
+                .Subscribe(ViewModel.ContinueWithGoogle.Inputs)
+                .DisposedBy(DisposeBag);
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
