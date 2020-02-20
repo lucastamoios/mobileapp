@@ -101,17 +101,12 @@ namespace Toggl.iOS
 
         private void navigateAccordingToAccessLevel(AccessLevel accessLevel, AppStart app)
         {
-            var onboarding = new OnboardingViewController();
-            Window.RootViewController = onboarding;
-            Window.MakeKeyAndVisible();
-            return;
-
             if (accessLevel == AccessLevel.LoggedIn) app.ForceFullSync();
 
             var vc = accessLevel switch
             {
                 AccessLevel.AccessRestricted => loadRootViewController<OutdatedAppViewModel, Unit>(),
-                AccessLevel.NotLoggedIn => loadRootViewController<LoginViewModel, CredentialsParameter>(CredentialsParameter.Empty),
+                AccessLevel.NotLoggedIn => loadRootViewController<OnboardingViewModel, Unit>(),
                 AccessLevel.TokenRevoked => loadRootViewController<TokenResetViewModel, Unit>(),
                 AccessLevel.LoggedIn => loadRootViewController<MainTabBarViewModel, Unit>()
             };
