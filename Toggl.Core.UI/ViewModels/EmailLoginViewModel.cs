@@ -44,7 +44,6 @@ namespace Toggl.Core.UI.ViewModels
         private readonly Subject<bool> isShowPasswordButtonVisibleSubject = new Subject<bool>();
         private readonly BehaviorSubject<bool> isLoadingSubject = new BehaviorSubject<bool>(false);
         private readonly BehaviorSubject<string> errorMessageSubject = new BehaviorSubject<string>("");
-        private readonly BehaviorSubject<bool> isPasswordMaskedSubject = new BehaviorSubject<bool>(true);
         private readonly BehaviorSubject<Email> emailSubject = new BehaviorSubject<Email>(Shared.Email.Empty);
         private readonly BehaviorSubject<Password> passwordSubject = new BehaviorSubject<Password>(Shared.Password.Empty);
 
@@ -55,7 +54,6 @@ namespace Toggl.Core.UI.ViewModels
         public IObservable<bool> LoginEnabled { get; }
         public IObservable<ShakeTargets> Shake { get; }
         public IObservable<string> ErrorMessage { get; }
-        public IObservable<bool> IsPasswordMasked { get; }
         public IObservable<bool> IsShowPasswordButtonVisible { get; }
 
         public ViewAction Signup { get; }
@@ -115,10 +113,6 @@ namespace Toggl.Core.UI.ViewModels
                 .AsDriver(this.schedulerProvider);
 
             ErrorMessage = errorMessageSubject
-                .DistinctUntilChanged()
-                .AsDriver(this.schedulerProvider);
-
-            IsPasswordMasked = isPasswordMaskedSubject
                 .DistinctUntilChanged()
                 .AsDriver(this.schedulerProvider);
 
@@ -182,9 +176,6 @@ namespace Toggl.Core.UI.ViewModels
                     .Track(analyticsService.Login, AuthenticationMethod.EmailAndPassword)
                     .Subscribe(_ => onAuthenticated(), onError, onCompleted);
         }
-
-        public void TogglePasswordVisibility()
-            => isPasswordMaskedSubject.OnNext(!isPasswordMaskedSubject.Value);
 
         private Task signup()
         {
