@@ -139,7 +139,7 @@ namespace Toggl.Core.UI.ViewModels.Settings
 
             var chosenWorkspace = await interactorFactory.GetWorkspaceById(chosenProjectParams.WorkspaceId).Execute();
 
-            if (!(chosenProjectParams.ProjectId is long chosenProjectProjectId) || !(chosenProjectParams.TaskId is long chosenProjectTaskId))
+            if (!(chosenProjectParams.ProjectId is long chosenProjectProjectId))
             {
                 projectClientTaskInfo.OnNext(EditTimeEntryViewModel.ProjectClientTaskInfo.Empty);
                 clearTagsIfNeeded(workspaceId, chosenProjectParams.WorkspaceId);
@@ -153,7 +153,7 @@ namespace Toggl.Core.UI.ViewModels.Settings
             clearTagsIfNeeded(workspaceId, project.WorkspaceId);
 
             var task = chosenProjectParams.TaskId.HasValue
-                ? await interactorFactory.GetTaskById(chosenProjectTaskId).Execute()
+                ? await interactorFactory.GetTaskById(chosenProjectParams.TaskId.Value).Execute()
                 : null;
 
             var taskName = task?.Name ?? string.Empty;
