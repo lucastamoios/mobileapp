@@ -906,6 +906,7 @@
     <AndroidResource Include="Resources\drawable\background_timer_widget.xml" />
     <AndroidResource Include="Resources\drawable\ic_close.xml" />
     <AndroidResource Include="Resources\drawable\ic_stop_big.xml" />
+    <AndroidResource Include="Resources\drawable\onboarding_toggl_man_border_hack.xml" />
     <AndroidResource Include="Resources\drawable\outline_button.xml" />
     <AndroidResource Include="Resources\drawable\shape_dot.xml" />
     <AndroidResource Include="Resources\drawable\ic_archived.xml" />
@@ -948,6 +949,7 @@
     <AndroidResource Include="Resources\menu\SettingsMenu.xml" />
     <AndroidResource Include="Resources\menu\DoneOrClearMenu.xml" />
     <AndroidResource Include="Resources\menu\OneButtonMenu.xml" />
+    <AndroidResource Include="Resources\raw\togglman.mp4" />
     <AndroidResource Include="Resources\values-night\Environment.xml" />
     <AndroidResource Include="Resources\values-v23\Styles.xml" />
     <AndroidResource Include="Resources\values-v27\Styles.xml" />
