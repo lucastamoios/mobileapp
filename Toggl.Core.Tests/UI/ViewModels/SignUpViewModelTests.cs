@@ -291,17 +291,16 @@ namespace Toggl.Core.Tests.UI.ViewModels
             }
 
             [Fact, LogIfTooSlow]
-            public void ShowsTheTermsOfServiceViewModelOnlyOnceIfUserAcceptsTheTerms()
+            public async Task ShowsTheTermsOfServiceViewModelOnlyOnceIfUserAcceptsTheTerms()
             {
+                ViewModel.Email.Accept(ValidEmail);
+                ViewModel.Password.Accept(ValidPassword);
                 NavigationService.Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View).Returns(new Country("Latvia", "LV", 70));
-                UserAccessManager
-                    .SignUp(Arg.Any<Email>(), Arg.Any<Password>(), Arg.Any<bool>(), Arg.Any<int>(), Arg.Any<string>())
-                    .Returns(Observable.Throw<Unit>(new Exception()));
 
                 ViewModel.SignUp.ExecuteSequentially(2).Subscribe();
                 TestScheduler.Start();
 
-                NavigationService.Received(1).Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View);
+                await NavigationService.Received(1).Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View);
             }
 
             public sealed class WhenUserAcceptsTheTermsOfService : SignUpViewModelTest
