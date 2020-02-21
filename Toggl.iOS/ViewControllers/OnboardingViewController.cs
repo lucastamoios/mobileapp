@@ -63,7 +63,7 @@ namespace Toggl.iOS.ViewControllers
             ContinueWithEmailButton.TitleLabel.Font = UIFont.SystemFontOfSize(17, UIFontWeight.Medium);
             ContinueWithEmailButton.SetTitle(Resources.ContinueWithEmail, UIControlState.Normal);
             ContinueWithEmailButton.SetTitleColor(ColorAssets.InverseText, UIControlState.Normal);
-            ContinueWithEmailButton.Layer.CornerRadius = 4;
+            ContinueWithEmailButton.Layer.CornerRadius = 8;
             ContinueWithEmailButton.Layer.BorderWidth = 1;
             ContinueWithEmailButton.Layer.BorderColor = ColorAssets.InverseText.CGColor;
 
@@ -72,10 +72,10 @@ namespace Toggl.iOS.ViewControllers
             ContinueWithGoogleButton.SetTitle(Resources.ContinueWithGoogle, UIControlState.Normal);
             ContinueWithGoogleButton.SetTitleColor(ColorAssets.Text, UIControlState.Normal);
             ContinueWithGoogleButton.Layer.MasksToBounds = false;
-            ContinueWithGoogleButton.Layer.CornerRadius = 4;
+            ContinueWithGoogleButton.Layer.CornerRadius = 8;
             ContinueWithGoogleButton.Layer.ShadowColor = UIColor.Black.CGColor;
-            ContinueWithGoogleButton.Layer.ShadowOpacity = (float)0.2;
-            ContinueWithGoogleButton.Layer.ShadowRadius = 2;
+            ContinueWithGoogleButton.Layer.ShadowOpacity = (float)0.15;
+            ContinueWithGoogleButton.Layer.ShadowRadius = 6;
             ContinueWithGoogleButton.Layer.ShadowOffset = new CGSize(0, 2);
         }
     }
