@@ -26,13 +26,13 @@ using Toggl.Shared;
 using Toggl.Shared.Models;
 using Toggl.Storage.Settings;
 using Xunit;
-using static Toggl.Core.UI.ViewModels.OldSignupViewModel;
+using static Toggl.Core.UI.ViewModels.OldSignUpViewModel;
 
 namespace Toggl.Core.Tests.UI.ViewModels
 {
     public sealed class OldSignUpViewModelTests
     {
-        public abstract class OldSignUpViewModelTest : BaseViewModelWithInputTests<OldSignupViewModel, CredentialsParameter>
+        public abstract class OldSignUpViewModelTest : BaseViewModelWithInputTests<OldSignUpViewModel, CredentialsParameter>
         {
             protected CredentialsParameter DefaultParameters { get; } = CredentialsParameter.Empty;
 
@@ -44,8 +44,8 @@ namespace Toggl.Core.Tests.UI.ViewModels
 
             protected ILocation Location { get; } = Substitute.For<ILocation>();
 
-            protected override OldSignupViewModel CreateViewModel()
-                => new OldSignupViewModel(
+            protected override OldSignUpViewModel CreateViewModel()
+                => new OldSignUpViewModel(
                     ApiFactory,
                     UserAccessManager,
                     AnalyticsService,
@@ -102,7 +102,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 var timezoneService = usePlatformInfo ? PlatformInfo : null;
 
                 Action tryingToConstructWithEmptyParameters =
-                    () => new OldSignupViewModel(
+                    () => new OldSignUpViewModel(
                         apiFactory,
                         userAccessManager,
                         analyticsSerivce,

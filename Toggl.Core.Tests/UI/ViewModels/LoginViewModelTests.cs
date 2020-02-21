@@ -523,7 +523,7 @@ namespace Toggl.Core.Tests.UI.ViewModels
                 TestScheduler.Start();
                 NavigationService
                     .Received()
-                    .Navigate<OldSignupViewModel, CredentialsParameter>(
+                    .Navigate<OldSignUpViewModel, CredentialsParameter>(
                         Arg.Is<CredentialsParameter>(parameter
                             => parameter.Email.Equals(email)
                             && parameter.Password.Equals(password)

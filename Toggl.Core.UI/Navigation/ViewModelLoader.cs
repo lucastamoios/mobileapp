@@ -206,9 +206,9 @@ namespace Toggl.Core.UI.Navigation
                     dependencyContainer.RxActionFactory);
             }
 
-            if (viewModelType == typeof(OldSignupViewModel))
+            if (viewModelType == typeof(OldSignUpViewModel))
             {
-                return new OldSignupViewModel(
+                return new OldSignUpViewModel(
                     dependencyContainer.ApiFactory,
                     dependencyContainer.UserAccessManager,
                     dependencyContainer.AnalyticsService,
