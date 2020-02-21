@@ -1381,6 +1381,7 @@
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\error_baddata-1.png" />
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\error_baddata.png" />
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Colors.xcassets\OnboardingButtonBackground.colorset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -1478,6 +1479,7 @@
     <InterfaceDefinition Include="Cells\MainLog\SuggestionLogViewCell.xib" />
     <InterfaceDefinition Include="Cells\MainLog\SuggestionsHeaderView.xib" />
     <InterfaceDefinition Include="Cells\MainLog\UserFeedbackTableViewCell.xib" />
+    <InterfaceDefinition Include="ViewControllers\TermsAndCountryViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -2101,6 +2103,10 @@
     <Compile Include="Cells\MainLog\UserFeedbackTableViewCell.designer.cs">
       <DependentUpon>UserFeedbackTableViewCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\TermsAndCountryViewController.cs" />
+    <Compile Include="ViewControllers\TermsAndCountryViewController.designer.cs">
+      <DependentUpon>TermsAndCountryViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Toggl.Core.UI\Toggl.Core.UI.csproj">
@@ -2231,6 +2237,7 @@
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartTotal.colorset\" />
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartFilledPlaceholder.colorset\" />
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartTotalPlaceholder.colorset\" />
+    <Folder Include="Resources\Colors.xcassets\OnboardingButtonBackground.colorset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="GoogleService-Info.plist" />
