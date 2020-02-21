@@ -1381,6 +1381,11 @@
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\error_baddata-1.png" />
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\error_baddata.png" />
     <ImageAsset Include="Resources\Images.xcassets\icErrorBadData.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\togglLogoRedAndBlack.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\togglLogoRedAndBlack.imageset\togglLogo.png" />
+    <ImageAsset Include="Resources\Images.xcassets\togglLogoRedAndBlack.imageset\togglLogo%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\togglLogoRedAndBlack.imageset\togglLogo%403x.png" />
+    <ImageAsset Include="Resources\Colors.xcassets\OnboardingBackgroundColor.colorset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -2238,6 +2243,8 @@
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartFilledPlaceholder.colorset\" />
     <Folder Include="Resources\Colors.xcassets\ReportsBarChartTotalPlaceholder.colorset\" />
     <Folder Include="Resources\Images.xcassets\gifTogglman.imageset\" />
+    <Folder Include="Resources\Images.xcassets\togglLogoRedAndBlack.imageset\" />
+    <Folder Include="Resources\Colors.xcassets\OnboardingBackgroundColor.colorset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="GoogleService-Info.plist" />
