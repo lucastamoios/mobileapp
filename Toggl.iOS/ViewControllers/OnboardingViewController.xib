@@ -25,11 +25,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="togglLogoRedAndBlack" translatesAutoresizingMaskIntoConstraints="NO" id="K5R-Ee-235">
-                    <rect key="frame" x="31" y="72" width="126" height="38"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="togglLogoRedAndBlack" translatesAutoresizingMaskIntoConstraints="NO" id="K5R-Ee-235">
+                    <rect key="frame" x="31" y="72" width="63" height="19"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opf-x6-TL2">
-                    <rect key="frame" x="31" y="130" width="352" height="77"/>
+                    <rect key="frame" x="31" y="111" width="352" height="77"/>
                     <attributedString key="attributedText">
                         <fragment>
                             <string key="content">Simple time tracking.
@@ -81,6 +81,7 @@ Powerful reporting.</string>
             <color key="backgroundColor" name="OnboardingBackgroundColor"/>
             <constraints>
                 <constraint firstItem="JeJ-xL-Lit" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="50" id="1pQ-hK-5mt"/>
+                <constraint firstItem="JeJ-xL-Lit" firstAttribute="top" secondItem="opf-x6-TL2" secondAttribute="bottom" constant="50" id="3BN-X2-zze"/>
                 <constraint firstItem="K5R-Ee-235" firstAttribute="top" secondItem="dbi-b1-aTW" secondAttribute="top" constant="28" id="7se-Yl-rR1"/>
                 <constraint firstItem="opf-x6-TL2" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="31" id="I5i-AI-pWI"/>
                 <constraint firstItem="JeJ-xL-Lit" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="I9G-Fy-JPv"/>
@@ -92,8 +93,35 @@ Powerful reporting.</string>
                 <constraint firstItem="K5R-Ee-235" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="31" id="ePT-II-dUT"/>
                 <constraint firstItem="opf-x6-TL2" firstAttribute="top" secondItem="K5R-Ee-235" secondAttribute="bottom" constant="20" id="h0t-Jz-J0a"/>
                 <constraint firstAttribute="trailing" secondItem="opf-x6-TL2" secondAttribute="trailing" constant="31" id="qWK-K2-BAp"/>
+                <constraint firstItem="fCG-RA-wVW" firstAttribute="top" secondItem="JeJ-xL-Lit" secondAttribute="bottom" constant="50" id="yIV-iI-DGC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="dbi-b1-aTW"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Qc1-a3-U0i"/>
+                    <exclude reference="1pQ-hK-5mt"/>
+                    <exclude reference="3BN-X2-zze"/>
+                    <exclude reference="W7L-lN-efa"/>
+                    <exclude reference="yIV-iI-DGC"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="constraints">
+                    <include reference="Qc1-a3-U0i"/>
+                    <include reference="1pQ-hK-5mt"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="constraints">
+                    <include reference="W7L-lN-efa"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="3BN-X2-zze"/>
+                    <include reference="yIV-iI-DGC"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="33.333333333333336" y="53.571428571428569"/>
         </view>
     </objects>
