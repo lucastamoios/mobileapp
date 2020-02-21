@@ -198,9 +198,6 @@ namespace Toggl.Core.UI.ViewModels
                 case UnauthorizedException _:
                     signUpErrorSubject.OnNext(Resources.IncorrectEmailOrPassword);
                     break;
-                case GoogleLoginException googleEx when googleEx.LoginWasCanceled:
-                    signUpErrorSubject.OnNext(string.Empty);
-                    break;
                 case EmailIsAlreadyUsedException _:
                     signUpErrorSubject.OnNext(Resources.EmailIsAlreadyUsedError);
                     break;
