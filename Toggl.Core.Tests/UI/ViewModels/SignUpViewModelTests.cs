@@ -370,7 +370,9 @@ namespace Toggl.Core.Tests.UI.ViewModels
                         UserAccessManager
                             .SignUp(Arg.Any<Email>(), Arg.Any<Password>(), Arg.Any<bool>(), Arg.Any<int>(), Arg.Any<string>())
                             .Returns(Observable.Return(Unit.Default));
-                        // NavigationService.Navigate<TermsAndCountryViewModel, Country?>(ViewModel.View).Returns(country);
+                        NavigationService
+                            .Navigate<TermsAndCountryViewModel, Unit, ICountry?>(Unit.Default, ViewModel.View)
+                            .Returns(country);
                     }
 
                     [Property]
