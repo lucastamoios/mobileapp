@@ -16,7 +16,7 @@
                 <outlet property="ContinueWithGoogleButton" destination="HcQ-CG-vqW" id="D7R-W3-B1w"/>
                 <outlet property="MessageLabel" destination="opf-x6-TL2" id="ZTZ-pM-AFE"/>
                 <outlet property="TogglLogo" destination="K5R-Ee-235" id="GL7-t7-ZLR"/>
-                <outlet property="TogglmanImage" destination="x56-f6-HsK" id="6hl-MX-Zpf"/>
+                <outlet property="TogglmanView" destination="JeJ-xL-Lit" id="d67-IK-o6k"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -70,20 +70,25 @@ Powerful reporting.</string>
                         </button>
                     </subviews>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="togglmangif.gif" translatesAutoresizingMaskIntoConstraints="NO" id="x56-f6-HsK">
-                    <rect key="frame" x="50" y="-212" width="314" height="1320"/>
-                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JeJ-xL-Lit">
+                    <rect key="frame" x="50" y="291" width="314" height="314"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="JeJ-xL-Lit" secondAttribute="height" id="74N-qp-TOh"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.56862745098039214" green="0.86274509803921573" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="x56-f6-HsK" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="50" id="51f-hL-Khi"/>
+                <constraint firstItem="JeJ-xL-Lit" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="50" id="1pQ-hK-5mt"/>
                 <constraint firstItem="K5R-Ee-235" firstAttribute="top" secondItem="dbi-b1-aTW" secondAttribute="top" constant="28" id="7se-Yl-rR1"/>
-                <constraint firstItem="dbi-b1-aTW" firstAttribute="trailing" secondItem="x56-f6-HsK" secondAttribute="trailing" constant="50" id="HRj-mx-xTg"/>
                 <constraint firstItem="opf-x6-TL2" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="31" id="I5i-AI-pWI"/>
+                <constraint firstItem="JeJ-xL-Lit" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="I9G-Fy-JPv"/>
                 <constraint firstItem="dbi-b1-aTW" firstAttribute="bottom" secondItem="fCG-RA-wVW" secondAttribute="bottom" constant="28" id="L4A-n4-G2p"/>
+                <constraint firstItem="dbi-b1-aTW" firstAttribute="trailing" secondItem="JeJ-xL-Lit" secondAttribute="trailing" constant="50" id="Qc1-a3-U0i"/>
                 <constraint firstItem="fCG-RA-wVW" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="31" id="R37-su-Ey0"/>
                 <constraint firstItem="dbi-b1-aTW" firstAttribute="trailing" secondItem="fCG-RA-wVW" secondAttribute="trailing" constant="31" id="Tx3-xR-cSN"/>
-                <constraint firstItem="x56-f6-HsK" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="a8A-yi-Fxt"/>
+                <constraint firstItem="JeJ-xL-Lit" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="W7L-lN-efa"/>
                 <constraint firstItem="K5R-Ee-235" firstAttribute="leading" secondItem="dbi-b1-aTW" secondAttribute="leading" constant="31" id="ePT-II-dUT"/>
                 <constraint firstItem="opf-x6-TL2" firstAttribute="top" secondItem="K5R-Ee-235" secondAttribute="bottom" constant="20" id="h0t-Jz-J0a"/>
                 <constraint firstAttribute="trailing" secondItem="opf-x6-TL2" secondAttribute="trailing" constant="31" id="qWK-K2-BAp"/>
@@ -95,7 +100,6 @@ Powerful reporting.</string>
     <resources>
         <image name="icGoogleColored" width="18" height="18"/>
         <image name="togglLogo" width="63" height="19"/>
-        <image name="togglmangif.gif" width="620" height="660"/>
         <namedColor name="CellBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

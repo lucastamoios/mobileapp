@@ -1,6 +1,9 @@
 ﻿using System;
+using AVFoundation;
 using CoreGraphics;
+using CoreMedia;
 using Foundation;
+using ObjCRuntime;
 using Toggl.Core.UI.ViewModels;
 using Toggl.iOS.Extensions;
 using Toggl.iOS.Extensions.Reactive;
@@ -12,6 +15,9 @@ namespace Toggl.iOS.ViewControllers
 {
     public sealed partial class OnboardingViewController : ReactiveViewController<OnboardingViewModel>
     {
+        private AVPlayer player;
+        private AVPlayerLayer playerLayer;
+
         public OnboardingViewController(OnboardingViewModel viewModel) : base(viewModel, nameof(OnboardingViewController))
         {
         }
@@ -20,7 +26,7 @@ namespace Toggl.iOS.ViewControllers
         {
             base.ViewDidLoad();
 
-            TogglmanImage.SetAnimatedImage("togglman");
+            configureVideo();
             configureMessageAppearance();
             configureButtonsAppearance();
 
@@ -33,12 +39,40 @@ namespace Toggl.iOS.ViewControllers
                 .DisposedBy(DisposeBag);
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+            playerLayer.Frame = TogglmanView.Bounds;
+            restartVideo();
+        }
+
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
             // Update shadows and borders in the buttons
             // this is needed because CGColor doesn't know about the current trait collection
             configureButtonsAppearance();
+        }
+
+        private void configureVideo()
+        {
+            var url = NSBundle.MainBundle.GetUrlForResource("togglman", "mp4");
+            player = AVPlayer.FromUrl(url);
+            NSNotificationCenter.DefaultCenter.AddObserver(this, new Selector(nameof(restartVideo)),
+                AVPlayerItem.DidPlayToEndTimeNotification, player.CurrentItem);
+
+            playerLayer = AVPlayerLayer.FromPlayer(player);
+            TogglmanView.Layer.AddSublayer(playerLayer);
+
+            playerLayer.Frame = TogglmanView.Bounds;
+            restartVideo();
+        }
+
+        [Export(nameof(restartVideo))]
+        private void restartVideo()
+        {
+            player.Seek(CMTime.Zero);
+            player.Play();
         }
 
         private void configureMessageAppearance()
@@ -77,6 +111,15 @@ namespace Toggl.iOS.ViewControllers
             ContinueWithGoogleButton.Layer.ShadowOpacity = (float)0.15;
             ContinueWithGoogleButton.Layer.ShadowRadius = 6;
             ContinueWithGoogleButton.Layer.ShadowOffset = new CGSize(0, 2);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                NSNotificationCenter.DefaultCenter.RemoveObserver(this, AVPlayerItem.DidPlayToEndTimeNotification, player.CurrentItem);
+            }
         }
     }
 }

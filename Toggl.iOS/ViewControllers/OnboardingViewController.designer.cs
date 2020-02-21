@@ -28,25 +28,10 @@ namespace Toggl.iOS.ViewControllers
 		UIKit.UIImageView TogglLogo { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView TogglmanImage { get; set; }
+		UIKit.UIView TogglmanView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TogglLogo != null) {
-				TogglLogo.Dispose ();
-				TogglLogo = null;
-			}
-
-			if (TogglmanImage != null) {
-				TogglmanImage.Dispose ();
-				TogglmanImage = null;
-			}
-
-			if (MessageLabel != null) {
-				MessageLabel.Dispose ();
-				MessageLabel = null;
-			}
-
 			if (ButtonsStackView != null) {
 				ButtonsStackView.Dispose ();
 				ButtonsStackView = null;
@@ -60,6 +45,21 @@ namespace Toggl.iOS.ViewControllers
 			if (ContinueWithGoogleButton != null) {
 				ContinueWithGoogleButton.Dispose ();
 				ContinueWithGoogleButton = null;
+			}
+
+			if (MessageLabel != null) {
+				MessageLabel.Dispose ();
+				MessageLabel = null;
+			}
+
+			if (TogglLogo != null) {
+				TogglLogo.Dispose ();
+				TogglLogo = null;
+			}
+
+			if (TogglmanView != null) {
+				TogglmanView.Dispose ();
+				TogglmanView = null;
 			}
 		}
 	}
