@@ -3,7 +3,6 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using System;
-using System.Diagnostics;
 using AndroidX.AppCompat.App;
 using Toggl.Core;
 using Toggl.Core.UI;
@@ -68,9 +67,7 @@ namespace Toggl.Droid
             var navigationUrl = Intent.Data?.ToString() ?? getTrackUrlFromProcessedText();
             if (string.IsNullOrEmpty(navigationUrl))
             {
-                var stopwatch = Stopwatch.StartNew();
                 app.ForceFullSync();
-                Console.WriteLine($"xxaa stopwatch: {stopwatch.ElapsedMilliseconds} ms");
                 StartActivity(typeof(MainTabBarActivity));
                 Finish();
                 return;
